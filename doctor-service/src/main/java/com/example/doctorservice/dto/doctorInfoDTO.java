@@ -20,7 +20,7 @@ public class doctorInfoDTO {
 
     public doctorInfoDTO(){
         this.id = UUID.randomUUID().toString();
-        this.specialization = "General Physician";
+        this.specialization = "GENERAL_PHYSICIAN";
         this.status = "Pending";
         String timeStamp = new SimpleDateFormat("dd-MM-YYYY").format(Calendar.getInstance().getTime());
         this.registrationDate = timeStamp;
