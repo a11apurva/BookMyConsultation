@@ -15,7 +15,9 @@ import org.springframework.web.bind.annotation.*;
 import com.example.doctorservice.services.auxiliaryService;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.print.Doc;
 import java.io.IOException;
+import java.util.List;
 
 @RestController
 @RequestMapping(value = "/")
@@ -44,8 +46,6 @@ public class DoctorServiceController {
             String errorOutput = "{\"errorCode\" : \"ERR_INVALID_INPUT\" }";
             return new ResponseEntity(errorOutput, HttpStatus.BAD_REQUEST);
         }
-
-        System.out.println("***********Here*************");
 
         Doctor newDoc = new Doctor(inputDTO);
         Doctor savedDoc = mongoservice.saveOrUpdateDoctor(newDoc);
@@ -117,27 +117,39 @@ public class DoctorServiceController {
      * Endpoint 5: Return List of doctors sorted by ratings.
      */
     @GetMapping("/doctors")
-    public ResponseEntity getDoctorByStatusAndSpeciality(
+    public ResponseEntity<List<Doctor>> getDoctorByStatusAndSpeciality(
             @RequestParam(name="status", required = false) String status,
-            @RequestParam(name="speciality", required = false) String speciality)
+            @RequestParam(name="specialization", required = false) String speciality)
     {
+        System.out.println("*** GET DOCTORS ***");
+
         if(status == null)
         {
             String errorOutput = "{\"errorCode\" : \"ERR_INVALID_STATUS\" }";
             return new ResponseEntity(errorOutput, HttpStatus.BAD_REQUEST);
         }
 
+        List<Doctor> docs = null;
 
         if(speciality == null)
         {
-            String errorOutput = "{\"errorCode\" : \"ERR_INVALID_SPECIALITY\" }";
-            return new ResponseEntity(errorOutput, HttpStatus.BAD_REQUEST);
+            System.out.println("Only status");
+            docs = mongoservice.findByStatus(status);
+        }
+        else
+        {
+            System.out.println("status and specialization");
+            docs = mongoservice.findAllByStatusAndSpecialization(status, speciality);
         }
 
+        System.out.println("----------");
         System.out.println(status);
         System.out.println(speciality);
+        System.out.println(docs);
+        System.out.println(docs.size());
+        System.out.println("----------");
 
-        return new ResponseEntity(HttpStatus.OK);
+        return new ResponseEntity<List<Doctor>>(docs, HttpStatus.OK);
     }
 
 
