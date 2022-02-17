@@ -1,4 +1,4 @@
-package com.example.bmcgateway;
+package com.example.appointmentgateway;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -6,10 +6,10 @@ import org.springframework.cloud.netflix.zuul.EnableZuulProxy;
 
 @EnableZuulProxy
 @SpringBootApplication
-public class BmcGatewayApplication {
+public class AppointmentGatewayApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(BmcGatewayApplication.class, args);
+		SpringApplication.run(AppointmentGatewayApplication.class, args);
 	}
 
 }
