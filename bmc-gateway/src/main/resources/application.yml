@@ -2,9 +2,11 @@ server:
   port: 9191
 
 spring:
-  applicatin:
-    name: API-GATEWAY
   cloud:
     gateway:
       routes:
-        - id: DOCTOR-SERVICE
+        - id: docservice
+          uri: http://localhost:8081/
+          predicates:
+            - Path=/docservice/**
+
