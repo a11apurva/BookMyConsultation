@@ -2,11 +2,22 @@ server:
   port: 9191
 
 spring:
+  application:
+    name: API-GATEWAY
   cloud:
+    discovery:
+      enabled: true
     gateway:
       routes:
-        - id: docservice
-          uri: http://localhost:8081/
+        - id: doctor-service
+          uri: lb://doctor-service
           predicates:
-            - Path=/docservice/**
+            - Path=/doctor-service/**
+        - id: user-service
+          uri: localhost:8083
+          predicates:
+            - Path=/user-service/**
+eureka:
+  instance:
+    hostname: localhost
 

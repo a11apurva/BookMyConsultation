@@ -10,4 +10,5 @@ public class BmcGatewayApplication {
 		SpringApplication.run(BmcGatewayApplication.class, args);
 	}
 
+
 }
