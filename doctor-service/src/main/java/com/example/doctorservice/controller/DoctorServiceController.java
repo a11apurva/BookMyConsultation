@@ -5,6 +5,7 @@ import com.example.doctorservice.dto.doctorInfoDTO;
 import com.example.doctorservice.entity.Doctor;
 import com.example.doctorservice.entity.DoctorRepository;
 import com.example.doctorservice.entity.S3Repository;
+import com.example.doctorservice.services.NotificationService;
 import com.example.doctorservice.services.auxiliaryServiceImpl;
 import com.example.doctorservice.services.mongoService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,12 +36,17 @@ public class DoctorServiceController {
     @Autowired
     private DoctorRepository doctorRepository;
 
+    @Autowired
+    private NotificationService notificationService;
+
+
+
     /**
      * Endpoint 1 : Register New Doctor
      */
     @PostMapping(value = "doctors", consumes = MediaType.APPLICATION_JSON_VALUE,
             produces= MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity newDoctorRegistration(@RequestBody doctorInfoDTO inputDTO){
+    public ResponseEntity newDoctorRegistration(@RequestBody doctorInfoDTO inputDTO) throws IOException {
 
         if(!auxServices.validateInput(inputDTO)) {
             String errorOutput = "{\"errorCode\" : \"ERR_INVALID_INPUT\" }";
@@ -50,6 +56,8 @@ public class DoctorServiceController {
         Doctor newDoc = new Doctor(inputDTO);
         Doctor savedDoc = mongoservice.saveOrUpdateDoctor(newDoc);
         System.out.println(savedDoc);
+
+        // notificationService.produceMessage("message", "123AAA", savedDoc.toString());
 
         return new ResponseEntity(inputDTO, HttpStatus.OK);
     }
