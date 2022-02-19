@@ -3,6 +3,9 @@ package com.example.appointmentservice.controller;
 import com.example.appointmentservice.dto.AppointmentDTO;
 import com.example.appointmentservice.dto.AvailabilityDTO;
 import com.example.appointmentservice.entity.AppointmentEntity;
+import com.example.appointmentservice.entity.Medicine;
+import com.example.appointmentservice.entity.Prescription;
+import com.example.appointmentservice.exceptions.PaymentException;
 import com.example.appointmentservice.service.AppointmentService;
 import com.example.appointmentservice.service.auxService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -71,7 +74,7 @@ public class AppointmentServiceController {
             produces= MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity fetchAppointment(@PathVariable("appId") String appId) {
 
-        AppointmentEntity appointment = appointmentService.findById(appId);
+        AppointmentEntity appointment = auxservice.findById(appId);
 
         if(appointment == null)
         {
@@ -99,5 +102,21 @@ public class AppointmentServiceController {
 
         return new ResponseEntity(appointment, HttpStatus.OK);
     }
+
+    /**
+     * Endpoint 6: Prescription
+     */
+    @PostMapping(value = "prescriptions", consumes = MediaType.APPLICATION_JSON_VALUE,
+            produces= MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity newPrescription(@RequestBody Prescription prescription) {
+
+        prescription =  auxservice.newPrescription(prescription);
+
+        if(prescription == null)
+            throw new PaymentException("errorCode: ERROR_IN_CONNECTION", 400);
+
+        return new ResponseEntity(prescription, HttpStatus.OK);
+    }
+
 
 }

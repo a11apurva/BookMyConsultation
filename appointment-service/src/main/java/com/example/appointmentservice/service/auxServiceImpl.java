@@ -4,6 +4,7 @@ import com.example.appointmentservice.dto.AppointmentDTO;
 import com.example.appointmentservice.dto.AvailabilityDTO;
 import com.example.appointmentservice.entity.AppointmentEntity;
 import com.example.appointmentservice.entity.AvailabilityEntity;
+import com.example.appointmentservice.entity.Prescription;
 import com.example.appointmentservice.exceptions.PaymentException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -17,7 +18,7 @@ import com.example.appointmentservice.dto.userInfoDTO;
 import org.springframework.web.client.RestTemplate;
 
 @Service
-public class auxServiceImpl implements  auxService {
+public class auxServiceImpl implements auxService {
 
     @Autowired
     private AvailabilityService availabilityService;
@@ -91,6 +92,27 @@ public class auxServiceImpl implements  auxService {
         appointment = appointmentService.saveAppointment(appointment);
 
         return appointment;
+    }
+
+    @Override
+    public AppointmentEntity findById(String id) {
+        return appointmentService.findById(id);
+    }
+
+    @Override
+    public Prescription newPrescription(Prescription prescription) {
+
+        AppointmentEntity appointment = findById(prescription.getAppointmentId());
+
+        if(appointment == null)
+            throw new PaymentException("errorCode: INVALID_APPOINTMENT_ID", 400);
+
+        System.out.println(appointment.getStatus());
+
+        if(appointment.getStatus().equals("PAYMENT_PENDING"))
+            throw new PaymentException("errorCode: PAYMENT_PENDING", 400);
+
+        return appointmentService.saveOrUpdatePrescription(prescription);
     }
 
 }
