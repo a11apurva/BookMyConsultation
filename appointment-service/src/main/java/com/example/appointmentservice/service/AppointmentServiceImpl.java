@@ -7,6 +7,8 @@ import com.example.appointmentservice.entity.AvailabilityEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 @Service
 public class AppointmentServiceImpl implements AppointmentService{
 
@@ -15,5 +17,15 @@ public class AppointmentServiceImpl implements AppointmentService{
 
     public AppointmentEntity saveAppointment(AppointmentEntity appointment){
         return _appointmentDao.save(appointment);
+    }
+
+    public AppointmentEntity findById(String id) {
+
+        Optional<AppointmentEntity> obj = _appointmentDao.findById(id);
+
+        if(!obj.isPresent())
+            return null;
+
+        return obj.get();
     }
 }

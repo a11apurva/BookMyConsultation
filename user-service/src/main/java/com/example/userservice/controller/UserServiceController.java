@@ -54,7 +54,7 @@ public class UserServiceController {
 
         if(usr == null)
         {
-            String errorOutput = "{\"errorCode\" : \"ERR_INVALID_DOCTOR_ID\" }";
+            String errorOutput = "{\"errorCode\" : \"ERR_INVALID_USER_ID\" }";
             return new ResponseEntity(errorOutput, HttpStatus.BAD_REQUEST);
         }
 

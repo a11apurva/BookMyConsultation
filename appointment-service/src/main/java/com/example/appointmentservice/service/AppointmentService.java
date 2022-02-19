@@ -6,4 +6,7 @@ import com.example.appointmentservice.entity.AvailabilityEntity;
 public interface AppointmentService {
 
     public AppointmentEntity saveAppointment(AppointmentEntity appointment);
+
+    public AppointmentEntity findById(String id);
+
 }

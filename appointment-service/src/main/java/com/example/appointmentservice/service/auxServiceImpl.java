@@ -4,6 +4,7 @@ import com.example.appointmentservice.dto.AppointmentDTO;
 import com.example.appointmentservice.dto.AvailabilityDTO;
 import com.example.appointmentservice.entity.AppointmentEntity;
 import com.example.appointmentservice.entity.AvailabilityEntity;
+import com.example.appointmentservice.exceptions.PaymentException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -62,9 +63,19 @@ public class auxServiceImpl implements  auxService {
         String docId = appointmentDTO.getDoctorId();
         String userId = appointmentDTO.getUserId();
 
-        String paymentUri = "http://localhost:8083/users/" + appointmentDTO.getUserId();;
+        String userUri = "http://localhost:8083/users/" + appointmentDTO.getUserId();
 
-        userInfoDTO userDTO = restTemplate.getForObject(paymentUri, userInfoDTO.class);
+        userInfoDTO userDTO;
+
+        try {
+            userDTO = restTemplate.getForObject(userUri, userInfoDTO.class);
+        }
+        catch(Exception e)
+        {
+            throw new PaymentException("Invalid User", 400);
+        }
+
+
         if(userDTO == null)
             return null;
 

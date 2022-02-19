@@ -3,6 +3,7 @@ package com.example.appointmentservice.controller;
 import com.example.appointmentservice.dto.AppointmentDTO;
 import com.example.appointmentservice.dto.AvailabilityDTO;
 import com.example.appointmentservice.entity.AppointmentEntity;
+import com.example.appointmentservice.service.AppointmentService;
 import com.example.appointmentservice.service.auxService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -19,6 +20,9 @@ public class AppointmentServiceController {
 
     @Autowired
     public auxService auxservice;
+
+    @Autowired
+    public AppointmentService appointmentService;
 
     /**
      * Endpoint 1: Doctor Availability
@@ -59,5 +63,23 @@ public class AppointmentServiceController {
         return new ResponseEntity(appointment, HttpStatus.OK);
     }
 
+
+    /**
+     * Endpoint 4: Return Doctor Availability
+     */
+    @GetMapping(value = "appointments/{appId}", consumes = MediaType.APPLICATION_JSON_VALUE,
+            produces= MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity fetchAppointment(@PathVariable("appId") String appId) {
+
+        AppointmentEntity appointment = appointmentService.findById(appId);
+
+        if(appointment == null)
+        {
+            String errorOutput = "{\"errorCode\" : \"ERR_INVALID_APPOINTMENT_ID\" }";
+            return new ResponseEntity(errorOutput, HttpStatus.BAD_REQUEST);
+        }
+
+        return new ResponseEntity(appointment, HttpStatus.OK);
+    }
 
 }
