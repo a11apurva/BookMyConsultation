@@ -65,7 +65,7 @@ public class AppointmentServiceController {
 
 
     /**
-     * Endpoint 4: Return Doctor Availability
+     * Endpoint 4: Return Appointment details based on appointmentId
      */
     @GetMapping(value = "appointments/{appId}", consumes = MediaType.APPLICATION_JSON_VALUE,
             produces= MediaType.APPLICATION_JSON_VALUE)
@@ -76,6 +76,24 @@ public class AppointmentServiceController {
         if(appointment == null)
         {
             String errorOutput = "{\"errorCode\" : \"ERR_INVALID_APPOINTMENT_ID\" }";
+            return new ResponseEntity(errorOutput, HttpStatus.BAD_REQUEST);
+        }
+
+        return new ResponseEntity(appointment, HttpStatus.OK);
+    }
+
+    /**
+     * Endpoint 5: Return Appointment details based on userId
+     */
+    @GetMapping(value = "users/{userId}/appointments")
+    public ResponseEntity fetchAppointmentByUserId(@PathVariable("userId") String userId) {
+
+        List<AppointmentEntity> appointment = appointmentService.findByUserId(userId);
+        System.out.println(appointment);
+
+        if(appointment == null)
+        {
+            String errorOutput = "{\"errorCode\" : \"ERR_INVALID_APPOINTMENT\" }";
             return new ResponseEntity(errorOutput, HttpStatus.BAD_REQUEST);
         }
 

@@ -7,6 +7,7 @@ import com.example.appointmentservice.entity.AvailabilityEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -27,5 +28,11 @@ public class AppointmentServiceImpl implements AppointmentService{
             return null;
 
         return obj.get();
+    }
+
+    public List<AppointmentEntity> findByUserId(String id){
+
+        return _appointmentDao.findByUserid(id);
+
     }
 }
