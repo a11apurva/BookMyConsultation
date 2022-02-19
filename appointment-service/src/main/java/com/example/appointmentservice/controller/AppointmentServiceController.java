@@ -2,11 +2,13 @@ package com.example.appointmentservice.controller;
 
 import com.example.appointmentservice.dto.AppointmentDTO;
 import com.example.appointmentservice.dto.AvailabilityDTO;
+import com.example.appointmentservice.dto.AvailabilityReturnDTO;
 import com.example.appointmentservice.entity.AppointmentEntity;
 import com.example.appointmentservice.entity.Medicine;
 import com.example.appointmentservice.entity.Prescription;
 import com.example.appointmentservice.exceptions.PaymentException;
 import com.example.appointmentservice.service.AppointmentService;
+import com.example.appointmentservice.service.AvailabilityService;
 import com.example.appointmentservice.service.auxService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -26,6 +28,9 @@ public class AppointmentServiceController {
 
     @Autowired
     public AppointmentService appointmentService;
+
+    @Autowired
+    public AvailabilityService availabilityService;
 
     /**
      * Endpoint 1: Doctor Availability
@@ -49,9 +54,9 @@ public class AppointmentServiceController {
             produces= MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity getAvailability(@PathVariable("doctorId") String doctorId) {
 
-        // auxservice.saveAppointments(doctorId, availabilityDTO);
+        AvailabilityReturnDTO returnDTO = availabilityService.findAllAvailabilityByDoctorid(doctorId);
 
-        return ResponseEntity.ok().build();
+        return new ResponseEntity(returnDTO, HttpStatus.OK);
     }
 
     /**

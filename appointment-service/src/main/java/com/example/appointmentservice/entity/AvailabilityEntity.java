@@ -2,7 +2,6 @@ package com.example.appointmentservice.entity;
 
 import javax.persistence.*;
 import java.math.BigInteger;
-import java.util.Date;
 import java.util.Objects;
 
 @Entity
@@ -18,7 +17,7 @@ public class AvailabilityEntity {
     private String availability_date;
 
     @Column(name = "doctor_id")
-    private String doctor_id;
+    private String doctorid;
 
     @Column(name = "is_booked", columnDefinition="BIT")
     private Boolean is_booked;
@@ -29,9 +28,9 @@ public class AvailabilityEntity {
 
     public AvailabilityEntity() {}
 
-    public AvailabilityEntity(String availability_date, String doctor_id, Boolean is_booked, String timeslot) {
+    public AvailabilityEntity(String availability_date, String doctorid, Boolean is_booked, String timeslot) {
         this.availability_date = availability_date;
-        this.doctor_id = doctor_id;
+        this.doctorid = doctorid;
         this.is_booked = is_booked;
         this.timeslot = timeslot;
     }
@@ -41,7 +40,7 @@ public class AvailabilityEntity {
         return "AvailabilityEntity{" +
                 "id=" + id +
                 ", availability_date=" + availability_date +
-                ", doctor_id='" + doctor_id + '\'' +
+                ", doctor_id='" + doctorid + '\'' +
                 ", is_booked=" + is_booked +
                 ", timeslot='" + timeslot + '\'' +
                 '}';
@@ -52,12 +51,12 @@ public class AvailabilityEntity {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         AvailabilityEntity that = (AvailabilityEntity) o;
-        return Objects.equals(id, that.id) && Objects.equals(availability_date, that.availability_date) && Objects.equals(doctor_id, that.doctor_id) && Objects.equals(is_booked, that.is_booked) && Objects.equals(timeslot, that.timeslot);
+        return Objects.equals(id, that.id) && Objects.equals(availability_date, that.availability_date) && Objects.equals(doctorid, that.doctorid) && Objects.equals(is_booked, that.is_booked) && Objects.equals(timeslot, that.timeslot);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, availability_date, doctor_id, is_booked, timeslot);
+        return Objects.hash(id, availability_date, doctorid, is_booked, timeslot);
     }
 
     public BigInteger getId() {
@@ -76,12 +75,12 @@ public class AvailabilityEntity {
         this.availability_date = availability_date;
     }
 
-    public String getDoctor_id() {
-        return doctor_id;
+    public String getDoctorid() {
+        return doctorid;
     }
 
-    public void setDoctor_id(String doctor_id) {
-        this.doctor_id = doctor_id;
+    public void setDoctorid(String doctor_id) {
+        this.doctorid = doctor_id;
     }
 
     public Boolean getIs_booked() {
