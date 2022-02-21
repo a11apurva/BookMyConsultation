@@ -1,6 +1,7 @@
 package com.example.appointmentservice.controller;
 
 import com.example.appointmentservice.dto.AppointmentDTO;
+import com.example.appointmentservice.dto.AppointmentReturnDTO;
 import com.example.appointmentservice.dto.AvailabilityDTO;
 import com.example.appointmentservice.dto.AvailabilityReturnDTO;
 import com.example.appointmentservice.entity.AppointmentEntity;
@@ -16,6 +17,7 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -42,9 +44,18 @@ public class AppointmentServiceController {
 
         System.out.println(availabilityDTO.toString());
 
-        auxservice.saveAvailability(doctorId, availabilityDTO);
+        boolean ret = auxservice.saveAvailability(doctorId, availabilityDTO);
 
-        return ResponseEntity.ok().build();
+        if(ret)
+        {
+            AvailabilityReturnDTO newDTO = new AvailabilityReturnDTO();
+            newDTO.setDoctorId(doctorId);
+            newDTO.setAvailabilityMap(availabilityDTO.getAvailabilityMap());
+            return new ResponseEntity<AvailabilityReturnDTO>(newDTO, HttpStatus.OK);
+        }
+
+        String errorOutput = "{\"errorCode\" : \"ERR_INVALID_DOCTOR_ID\" }";
+        return new ResponseEntity(errorOutput, HttpStatus.BAD_REQUEST);
     }
 
     /**
@@ -105,7 +116,14 @@ public class AppointmentServiceController {
             return new ResponseEntity(errorOutput, HttpStatus.BAD_REQUEST);
         }
 
-        return new ResponseEntity(appointment, HttpStatus.OK);
+        List<AppointmentReturnDTO> returnDTO = new ArrayList<>();
+
+        for(AppointmentEntity e : appointment)
+        {
+            returnDTO.add(new AppointmentReturnDTO(e));
+        }
+
+        return new ResponseEntity(returnDTO, HttpStatus.OK);
     }
 
     /**

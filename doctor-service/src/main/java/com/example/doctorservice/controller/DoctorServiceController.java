@@ -66,11 +66,13 @@ public class DoctorServiceController {
      * Endpoint 2 : Upload Files
      */
     @PostMapping("/doctors/{doctorId}/documents")
-    public void uploadFiles(@PathVariable("doctorId") String doctorId, @RequestParam MultipartFile[] files) throws IOException
+    public ResponseEntity uploadFiles(@PathVariable("doctorId") String doctorId, @RequestParam MultipartFile[] files) throws IOException
     {
         for(MultipartFile file: files){
             s3Repository.uploadFiles(doctorId, file);
         }
+
+        return new ResponseEntity<String>("File(s) uploaded Successfully.", HttpStatus.OK);
     }
 
     /**

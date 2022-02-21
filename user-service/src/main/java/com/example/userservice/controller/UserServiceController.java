@@ -31,7 +31,7 @@ public class UserServiceController {
      * Endpoint 1 : Register New Doctor
      */
     @PostMapping(value = "users")
-    public ResponseEntity newDoctorRegistration(@RequestBody userInfoDTO inputDTO){
+    public ResponseEntity newUserRegistration(@RequestBody userInfoDTO inputDTO){
         System.out.println("Reached Here");
         System.out.println(inputDTO);
 

@@ -64,7 +64,7 @@ public class auxServiceImpl implements auxService {
         String docId = appointmentDTO.getDoctorId();
         String userId = appointmentDTO.getUserId();
 
-        String userUri = "http://localhost:8083/users/" + appointmentDTO.getUserId();
+        String userUri = "http://localhost:8082/users/" + appointmentDTO.getUserId();
 
         userInfoDTO userDTO;
 

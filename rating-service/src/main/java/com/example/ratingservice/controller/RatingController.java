@@ -19,7 +19,7 @@ public class RatingController {
     /**
      * Endpoint 1: Doctor Availability
      */
-    @PostMapping(value = "rating", consumes = MediaType.APPLICATION_JSON_VALUE,
+    @PostMapping(value = "ratings", consumes = MediaType.APPLICATION_JSON_VALUE,
             produces= MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity newRating(@RequestBody RatingDTO ratingDTO) {
 

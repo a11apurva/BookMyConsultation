@@ -5,19 +5,23 @@ spring:
   application:
     name: API-GATEWAY
   cloud:
-    discovery:
-      enabled: true
     gateway:
       routes:
-        - id: doctor-service
-          uri: lb://doctor-service
+        - id: DOCTOR-SERVICE
+          uri: lb://DOCTOR-SERVICE
           predicates:
-            - Path=/doctor-service/**
-        - id: user-service
-          uri: localhost:8083
+            - Path=/doctor_service/**
+        - id: USER-SERVICE
+          uri: lb://USER-SERVICE
           predicates:
-            - Path=/user-service/**
+            - Path=/user_service/**
+      discovery:
+        enabled: true
+
 eureka:
   instance:
     hostname: localhost
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8761/eureka
 
