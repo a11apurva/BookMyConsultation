@@ -56,6 +56,13 @@ public class sesEmailVerificationService {
         sesClient.verifyEmailAddress(req->req.emailAddress(emailId));
     }
 
+    public void sendVerificationEmail(String user, String emailId) throws IOException, TemplateException, MessagingException {
+        Map<String,Object> templateModel = new HashMap<>();
+        templateModel.put("user",user);
+        Template freeMarkerTemplate = configurer.getConfiguration().getTemplate("userwelcome.ftl");
+        String htmlBody = FreeMarkerTemplateUtils.processTemplateIntoString(freeMarkerTemplate,templateModel);
+        sendVerificationMessage(emailId,"Welcome Email",htmlBody);
+    }
     public void sendVerificationEmail(User user) throws IOException, TemplateException, MessagingException {
         Map<String,Object> templateModel = new HashMap<>();
         templateModel.put("user",user);

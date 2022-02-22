@@ -15,6 +15,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import com.example.doctorservice.services.auxiliaryService;
 import org.springframework.web.multipart.MultipartFile;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.ObjectWriter;
 
 import javax.print.Doc;
 import java.io.IOException;
@@ -57,7 +59,9 @@ public class DoctorServiceController {
         Doctor savedDoc = mongoservice.saveOrUpdateDoctor(newDoc);
         System.out.println(savedDoc);
 
-        notificationService.produceMessage("new_doc", newDoc.getId(), newDoc.toString());
+        ObjectWriter ow = new ObjectMapper().writer().withDefaultPrettyPrinter();
+        String json = ow.writeValueAsString(savedDoc);
+        notificationService.produceMessage("new_doc", newDoc.getId(), json);
 
         return new ResponseEntity(inputDTO, HttpStatus.OK);
     }

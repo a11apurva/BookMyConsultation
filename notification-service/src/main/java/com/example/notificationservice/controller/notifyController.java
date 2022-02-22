@@ -28,7 +28,7 @@ public class notifyController {
         return ResponseEntity.ok().build();
     }
 
-    @PostMapping("email")
+    @PostMapping("welcomeemail")
     public ResponseEntity sendEmail(@RequestBody User user) throws TemplateException, MessagingException, IOException {
         verifyEmail.sendVerificationEmail(user);
         return ResponseEntity.ok().build();
