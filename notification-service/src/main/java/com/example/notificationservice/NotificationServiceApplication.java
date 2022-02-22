@@ -8,10 +8,12 @@ import org.apache.kafka.clients.consumer.ConsumerRecord;
 import org.apache.kafka.clients.consumer.ConsumerRecords;
 import org.apache.kafka.clients.consumer.KafkaConsumer;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.json.*;
 import org.springframework.context.ApplicationContext;
+import org.springframework.stereotype.Component;
 
 import javax.mail.MessagingException;
 import java.io.IOException;
@@ -28,7 +30,9 @@ public class NotificationServiceApplication {
 		ApplicationContext applicationContext =  SpringApplication.run(NotificationServiceApplication.class, args);
 
 		Properties properties = new Properties();
-		properties.put("bootstrap.servers", "54.146.152.189:9092");
+		KafkaHost kafkaHost = applicationContext.getBean(KafkaHost.class);
+
+		properties.put("bootstrap.servers", kafkaHost.getKafkaHost()+":9092");
 		properties.put("group.id", "test");
 		properties.put("enable.auto.commit", "true");
 		properties.put("auto.commit.interval.ms", "1000");
@@ -71,6 +75,17 @@ public class NotificationServiceApplication {
 			e.printStackTrace();
 		} finally {
 			consumer.close();
+		}
+	}
+
+	@Component
+	class KafkaHost {
+
+		@Value("${KAFKA_HOST:54.146.152.189}")
+		private String kafkaHost;
+
+		public String getKafkaHost() {
+			return kafkaHost;
 		}
 	}
 }

@@ -3,6 +3,7 @@ package com.example.doctorservice.producers;
 import org.apache.kafka.clients.producer.KafkaProducer;
 import org.apache.kafka.clients.producer.Producer;
 import org.apache.kafka.clients.producer.ProducerRecord;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 import java.io.IOException;
@@ -11,10 +12,13 @@ import java.util.Properties;
 @Component
 public class KafkaMessageProducerImpl implements  KafkaMessageProducer {
 
+    @Value("${KAFKA_HOST:54.146.152.189}")
+    private String kafkaHost;
+
     @Override
     public void publish(String topic, String key, String value) throws IOException {
         Properties properties = new Properties();
-        properties.put("bootstrap.servers", "54.146.152.189:9092");
+        properties.put("bootstrap.servers", kafkaHost+":9092");
         properties.put("acks", "all");
         properties.put("retries", 0);
         properties.put("linger.ms", 0);

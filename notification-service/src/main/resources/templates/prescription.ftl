@@ -4,9 +4,9 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 </head>
 <body>
-<p>Hello Dr. ${user.userName}</p>
-<p>Welcome to BookMyConsultation!</p>
-<p>Kindly upload the KYC documents.</p>
+<p>Hello</p>
+<p>Please find attached the prescription for appointment ID: ${appointment.id}.</p>
+</br>
 <p>Regards,</p>
 <p>
     <em>BookMyConsultation</em> <br />
