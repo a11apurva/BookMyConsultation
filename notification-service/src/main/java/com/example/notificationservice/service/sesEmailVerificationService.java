@@ -56,15 +56,15 @@ public class sesEmailVerificationService {
         sesClient.verifyEmailAddress(req->req.emailAddress(emailId));
     }
 
-    public void sendEmail(User user) throws IOException, TemplateException, MessagingException {
+    public void sendVerificationEmail(User user) throws IOException, TemplateException, MessagingException {
         Map<String,Object> templateModel = new HashMap<>();
         templateModel.put("user",user);
         Template freeMarkerTemplate = configurer.getConfiguration().getTemplate("userwelcome.ftl");
         String htmlBody = FreeMarkerTemplateUtils.processTemplateIntoString(freeMarkerTemplate,templateModel);
-        sendSimpleMessage(user.getEmailId(),"Welcome Email",htmlBody);
+        sendVerificationMessage(user.getEmailId(),"Welcome Email",htmlBody);
     }
 
-    private void sendSimpleMessage(String toEmail, String subject, String body) throws MessagingException {
+    private void sendVerificationMessage(String toEmail, String subject, String body) throws MessagingException {
         Properties props = System.getProperties();
         props.put("mail.transport.protocol","smtp");
         props.put("mail.smtp.port",587);

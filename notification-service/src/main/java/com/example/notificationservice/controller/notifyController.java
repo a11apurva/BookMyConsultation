@@ -30,7 +30,7 @@ public class notifyController {
 
     @PostMapping("email")
     public ResponseEntity sendEmail(@RequestBody User user) throws TemplateException, MessagingException, IOException {
-        verifyEmail.sendEmail(user);
+        verifyEmail.sendVerificationEmail(user);
         return ResponseEntity.ok().build();
     }
 

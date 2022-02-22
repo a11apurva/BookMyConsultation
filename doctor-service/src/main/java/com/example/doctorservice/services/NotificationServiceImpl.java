@@ -1,6 +1,7 @@
 package com.example.doctorservice.services;
 
-import com.example.doctorservice.config.KafkaMessageProducer;
+import com.example.doctorservice.producers.KafkaMessageProducer;
+import com.example.doctorservice.producers.KafkaMessageProducer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

@@ -5,11 +5,11 @@
 </head>
 <body>
 <p>Hi Dr ${user.userName}</p>
-<p>Congratulations !!! Your Registration is confirmed</p>
-
+<p>Congratulations! Your Registration is confirmed.</p>
+<p>You may add your availability details now.</p>
 <p>Regards,</p>
 <p>
-    <em>Upgrad</em> <br />
+    <em>BookMyConsultation</em> <br />
 </p>
 </body>
 </html>

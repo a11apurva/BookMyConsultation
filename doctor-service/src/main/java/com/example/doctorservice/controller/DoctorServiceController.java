@@ -57,7 +57,7 @@ public class DoctorServiceController {
         Doctor savedDoc = mongoservice.saveOrUpdateDoctor(newDoc);
         System.out.println(savedDoc);
 
-        // notificationService.produceMessage("message", "123AAA", savedDoc.toString());
+        notificationService.produceMessage("new_doc", newDoc.getId(), newDoc.toString());
 
         return new ResponseEntity(inputDTO, HttpStatus.OK);
     }

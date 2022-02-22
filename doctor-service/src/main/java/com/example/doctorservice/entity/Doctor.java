@@ -112,19 +112,19 @@ public class Doctor {
     @Override
     public String toString() {
         return "Doctor{" +
-                "id='" + id + '\'' +
-                ", firstName='" + firstName + '\'' +
-                ", lastName='" + lastName + '\'' +
-                ", mobile='" + mobile + '\'' +
-                ", dob='" + dob + '\'' +
-                ", emailId='" + emailId + '\'' +
-                ", pan='" + pan + '\'' +
-                ", specialization='" + specialization + '\'' +
-                ", status='" + status + '\'' +
-                ", registrationDate='" + registrationDate + '\'' +
-                ", approvedBy='" + approvedBy + '\'' +
-                ", approverComments='" + approverComments + '\'' +
-                ", verificationDate='" + verificationDate + '\'' +
+                "id:'" + id + '\'' +
+                ", firstName:'" + firstName + '\'' +
+                ", lastName:'" + lastName + '\'' +
+                ", mobile:'" + mobile + '\'' +
+                ", dob:'" + dob + '\'' +
+                ", emailId:'" + emailId + '\'' +
+                ", pan:'" + pan + '\'' +
+                ", specialization:'" + specialization + '\'' +
+                ", status:'" + status + '\'' +
+                ", registrationDate:'" + registrationDate + '\'' +
+                ", approvedBy:'" + approvedBy + '\'' +
+                ", approverComments:'" + approverComments + '\'' +
+                ", verificationDate:'" + verificationDate + '\'' +
                 '}';
     }
 

@@ -1,4 +1,4 @@
-package com.example.doctorservice.config;
+package com.example.doctorservice.producers;
 
 import org.apache.kafka.clients.producer.KafkaProducer;
 import org.apache.kafka.clients.producer.Producer;
@@ -9,13 +9,12 @@ import java.io.IOException;
 import java.util.Properties;
 
 @Component
-public class KafkaConfig implements KafkaMessageProducer {
+public class KafkaMessageProducerImpl implements  KafkaMessageProducer {
 
     @Override
     public void publish(String topic, String key, String value) throws IOException {
-
         Properties properties = new Properties();
-        properties.put("bootstrap.servers", "ec2-3-220-49-19.compute-1.amazonaws.com:9092");
+        properties.put("bootstrap.servers", "54.146.152.189:9092");
         properties.put("acks", "all");
         properties.put("retries", 0);
         properties.put("linger.ms", 0);
@@ -33,5 +32,6 @@ public class KafkaConfig implements KafkaMessageProducer {
         producer.send(new ProducerRecord<String, String>(topic, key, value));
 
         producer.close();
+
     }
 }
