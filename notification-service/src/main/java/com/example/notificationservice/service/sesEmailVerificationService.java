@@ -4,6 +4,7 @@ import com.example.notificationservice.entity.User;
 import freemarker.template.Template;
 import freemarker.template.TemplateException;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import org.springframework.ui.freemarker.FreeMarkerTemplateUtils;
 import org.springframework.web.servlet.view.freemarker.FreeMarkerConfigurer;
@@ -29,14 +30,18 @@ public class sesEmailVerificationService {
 
     private SesClient sesClient;
     private final FreeMarkerConfigurer configurer;
-    private String fromEmail = "anubhavh3@gmail.com";
+
+    @Value("${SES_ACCESS_KEY:AKIAQZIJ7MWR6TGENQMH}")
     private String accessKey;
+
+    @Value("${SES_SECRET_KEY:BIui+1/WvKu/FaCbTRNNmn2DyDy9m/YsrbYgMuVXy4hM}")
     private String secretKey;
+
+    @Value("${SES_FROM_EMAIL:anubhavh3@gmail.com}")
+    private String fromEmail;
 
     @PostConstruct
     public void init(){
-        accessKey="AKIAQZIJ7MWRTEJGYUMV";
-        secretKey="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";
 
         StaticCredentialsProvider staticCredentialsProvider = StaticCredentialsProvider
                 .create(AwsBasicCredentials.create(accessKey,secretKey));
@@ -73,8 +78,6 @@ public class sesEmailVerificationService {
         msg.setContent(body,"text/html");
         Transport transport = session.getTransport();
         try {
-            String accessKey = "AKIAQZIJ7MWR6TGENQMH";
-            String secretKey = "BIui+1/WvKu/FaCbTRNNmn2DyDy9m/YsrbYgMuVXy4hM";
             transport.connect("email-smtp.us-east-1.amazonaws.com", accessKey, secretKey);
             transport.sendMessage(msg, msg.getAllRecipients());
         }catch(Exception e){
