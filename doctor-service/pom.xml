@@ -86,6 +86,7 @@
 				<artifactId>spring-boot-maven-plugin</artifactId>
 			</plugin>
 		</plugins>
+		<finalName>doctor-service</finalName>
 	</build>
 
 </project>
