@@ -2,9 +2,9 @@ version: '3.3'
 services:
 # Eureka Server      
   eurekasvc:
-    build: eureka-service
-    container_name: eurekasvc
-    image: bookingaap/eurekasvc:1.0.0
+    build: eureka-server
+    container_name: eurekasrvr
+    image: bookingaap/eurekasrvr:1.0.0
     ports:
     - "8761:8761" 
     networks:

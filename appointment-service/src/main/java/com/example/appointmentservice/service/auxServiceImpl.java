@@ -7,6 +7,7 @@ import com.example.appointmentservice.entity.AvailabilityEntity;
 import com.example.appointmentservice.entity.Prescription;
 import com.example.appointmentservice.exceptions.PaymentException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import java.text.SimpleDateFormat;
@@ -28,6 +29,9 @@ public class auxServiceImpl implements auxService {
 
     @Autowired
     private AppointmentService appointmentService;
+
+    @Value("${USER_SERVICE_PORT:8082}")
+    private String usersvcport;
 
     public boolean saveAvailability(String doctorId, AvailabilityDTO availabilityDTO)
     {
@@ -64,7 +68,7 @@ public class auxServiceImpl implements auxService {
         String docId = appointmentDTO.getDoctorId();
         String userId = appointmentDTO.getUserId();
 
-        String userUri = "http://localhost:8082/users/" + appointmentDTO.getUserId();
+        String userUri = "http://localhost:"+usersvcport+"/users/" + appointmentDTO.getUserId();
 
         userInfoDTO userDTO;
 
