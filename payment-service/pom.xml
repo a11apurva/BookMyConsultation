@@ -75,7 +75,7 @@
 				<version>2.6.3</version>
 			</plugin>
 		</plugins>
-		<finalName>rating-service</finalName>
+		<finalName>payment-service</finalName>
 	</build>
 
 </project>

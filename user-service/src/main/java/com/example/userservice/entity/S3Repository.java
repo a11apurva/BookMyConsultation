@@ -8,6 +8,7 @@ import com.amazonaws.services.s3.AmazonS3;
 import com.amazonaws.services.s3.AmazonS3ClientBuilder;
 import com.amazonaws.services.s3.model.ObjectMetadata;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -20,13 +21,17 @@ public class S3Repository {
     private AmazonS3 s3Client;
     private final String BUCKET_NAME = "upgrad.user.documents";
 
+    @Value("${S3_ACCESS_KEY:AKIAQZIJ7MWRTEJGYUMV}")
+    private String accessKey;
+
+    @Value("${S3_SECRET_KEY:zEJ84sEwZUV8dzGVChmBBLX8GRSESnOGeFUQGFY5}")
+    private String secretKey;
+
     @Autowired
     ObjectMetadata metadata;
 
     @PostConstruct
     public void init(){
-        String accessKey="AKIAQZIJ7MWRTEJGYUMV";
-        String secretKey="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";
         AWSCredentials credentials = new BasicAWSCredentials(accessKey,secretKey);
         s3Client = AmazonS3ClientBuilder
                     .standard()
