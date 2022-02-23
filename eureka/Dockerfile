@@ -1,0 +1,7 @@
+FROM openjdk:14-jdk-alpine
+MAINTAINER upgrad
+ADD ./target/eureka-service.jar /opt/app/eureka-service.jar
+WORKDIR /opt/app
+ENV PATH="${PATH}:${JAVA_HOME}/bin"
+EXPOSE 8080
+ENTRYPOINT [ "java", "-jar", "/opt/app/eureka-service.jar"]
