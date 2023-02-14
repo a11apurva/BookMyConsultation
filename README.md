@@ -10,7 +10,7 @@ The services as shown in the Eureka server :
 
 ## High Level Architecture
 
-![HLD](/meta/hld.png)
+![HLD](/meta/HLD.png)
 
 Note: Doctor onboarding and user onboarding services are not shown in the diagram.
 
