@@ -7,3 +7,10 @@ This is the backend of an application to book doctor appointments. The applicati
 The services as shown in the Eureka server :
 
 ![Eureka](/meta/eureka-1.png)
+
+## High Level Architecture
+
+![HLD](/meta/hld.png)
+
+Note: Doctor onboarding and user onboarding services are not shown in the diagram.
+
