@@ -10,12 +10,12 @@ This is the backend of an application to book doctor appointments. The applicati
 
 Note: Doctor onboarding and user onboarding services are not shown in the diagram.
 
-### API-1: Make New Booking
+### API-1: Make New Appointment
 
 Endpoint -
 
 ```
-POST localhost:8080/booking 
+POST localhost:8080/appointment
 Content-Type application/json
 ```
 
@@ -23,10 +23,10 @@ Request Body Ex –
 
 ```
 	{
-   	 "fromDate": "2021-02-02",
-   	 "toDate": "2021-02-10",
-    	 "aadharNumber": "Akash Sinha-Aadhar Number",
-    	 "numOfRooms": 5
+   	 "doctorId": "504566071",
+    	 "userId": "1204560012",
+    	 "appointmentDate": "2021-02-10",
+    	 "timSlot": "14:20"
 	}
 ```
 
@@ -34,14 +34,12 @@ Response Body Ex -
 
 ```
 	{
-    	 "id": 1,
-    	 "fromDate": "2010-02-02",
-    	 "toDate": "2010-02-10",
-    	 "bookedOn": "2021-10-20 17:21:47",
-    	 "aadharNumber": "Akash Sinha-Aadhar Number",
-    	 "roomNumbers": "40,61,62,59,3",
-    	 "numOfRooms": 5,
-    	 "roomPrice": 40000,
+    	 "appointmentId": 3,
+   	 "doctorId": "504566071",
+    	 "userId": "1204560012",
+    	 "appointmentDate": "2021-02-10",
+    	 "timSlot": "14:20"
+    	 "status": "PaymentPending"
     	 "transactionId": 0
 	}
 ```
@@ -51,7 +49,7 @@ Response Body Ex -
 Endpoint -
 
 ```
-POST localhost:8080/booking/{booking-id}/transaction
+POST localhost:8080/appointment/{appointment-id}/transaction
 Content-Type application/json
 ```
 
@@ -60,7 +58,7 @@ Request Body Ex –
 ```
 	{
    	 "paymentMode": "CARD",
-	 "bookingId": 1,
+	 "appointmentId": 3,
 	 "upiId":"",
 	 "cardNumber":"Test Card Number"
 	}
@@ -70,14 +68,12 @@ Response Body Ex -
 
 ```
 	{
-    	 "id": 1,
-    	 "fromDate": "2010-02-02",
-    	 "toDate": "2010-02-10",
-    	 "bookedOn": "2021-10-20 17:21:47",
-    	 "aadharNumber": "Akash Sinha-Aadhar Number",
-    	 "roomNumbers": "40,61,62,59,3",
-    	 "numOfRooms": 5,
-    	 "roomPrice": 40000,
+    	 "appointmentId": 3,
+   	 "doctorId": "504566071",
+    	 "userId": "1204560012",
+    	 "appointmentDate": "2021-02-10",
+    	 "timSlot": "14:20"
+    	 "status": "Confirmed"
     	 "transactionId": 2
 	}
 ```
